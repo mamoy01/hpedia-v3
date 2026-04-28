@@ -55,21 +55,36 @@
 
         select, input { width: 100%; background: #181818; border: 1px solid #282828; padding: 18px; border-radius: 16px; color: white; font-size: 1rem; outline: none; }
 
-        /* Khusus BH iPhone */
         #iphone-only { display: block; }
 
-        .btn-wa { background: var(--text); color: #000; width: 100%; padding: 20px; border-radius: 18px; border: none; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+        .btn-wa { background: var(--text); color: #000; width: 100%; padding: 20px; border-radius: 18px; border: none; font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; transition: 0.3s; }
+        .btn-wa:hover { background: #25d366; color: white; }
 
-        /* Section Fitur */
+        /* Trust Badge */
+        .payment-info { text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-dim); display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        /* Section Fitur & Flow */
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 1.5rem; font-weight: 800; }
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 60px; }
         .f-card { background: var(--card); border: 1px solid var(--border); padding: 40px; border-radius: 24px; text-align: center; }
         .f-card i { font-size: 2.2rem; color: var(--accent); margin-bottom: 20px; display: block; }
+
+        /* FAQ Section */
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 60px; }
+        .faq-item { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        .faq-item h4 { font-size: 0.9rem; margin-bottom: 8px; color: var(--accent); }
+        .faq-item p { font-size: 0.85rem; color: var(--text-dim); }
 
         /* Testimonial Bar */
         .testimonial-bar { background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--border); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 80px; }
         .btn-ig-testi { color: var(--accent); text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; }
 
+        /* Floating WA */
+        .floating-wa { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 2000; text-decoration: none; }
+
         footer { padding: 40px; text-align: center; color: #333; font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+        @media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -136,15 +151,20 @@
                 <select id="kondisi">
                     <option value="Mulus Like New">Mulus Like New</option>
                     <option value="Lecet Fisik Wajar">Lecet Fisik Wajar</option>
-                    <option value="Minus Fungsi / Layar">Minus Fungsi / Layar</option>
                 </select>
             </div>
 
             <button class="btn-wa" onclick="gasKeWa()">
                 <i class="fab fa-whatsapp"></i> CEK HARGA BELI KAMI
             </button>
+
+            <div class="payment-info">
+                <i class="fas fa-shield-check"></i>
+                <span>Pembayaran Instan via Transfer Bank / E-Wallet</span>
+            </div>
         </div>
 
+        <h2 class="section-title">Kenapa Pilih Hpedia?</h2>
         <div class="features">
             <div class="f-card">
                 <i class="fas fa-hand-holding-usd"></i>
@@ -163,6 +183,18 @@
             </div>
         </div>
 
+        <h2 class="section-title">Sering Ditanyakan</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Unit apa saja yang diterima?</h4>
+                <p>Kami menerima unit dengan kondisi fisik mulus atau lecet pemakaian wajar (Normal Fungsi).</p>
+            </div>
+            <div class="faq-item">
+                <h4>Kapan unit dijemput?</h4>
+                <p>Setelah deal harga di WA, tim kami bisa meluncur di hari yang sama.</p>
+            </div>
+        </div>
+
         <div class="testimonial-bar">
             <h4>Masih Ragu Menjual ke Kami?</h4>
             <p style="color: var(--text-dim); font-size: 0.9rem;">Kami telah membeli ribuan gadget dengan proses yang aman dan transparan.</p>
@@ -171,6 +203,10 @@
             </a>
         </div>
     </div>
+
+    <a href="#" onclick="gasKeWa()" class="floating-wa">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <footer>
         &copy; 2026 HPEDIA INDONESIA. AHLI BELI GADGET BEKAS JABODETABEK.
@@ -191,9 +227,9 @@
             const lokasi = document.getElementById('lokasi').value;
             const kondisi = document.getElementById('kondisi').value;
 
-            let bhText = (brand === 'iPhone' && bh) ? `*BH:* ${bh}%%0A` : '';
+            let bhText = (brand === 'iPhone' && bh) ? `*BH:* ${bh}%0A` : '';
 
-            const waNum = "62881024332195";
+            const waNum = "6283805811175"; 
             const msg = `Halo Admin Hpedia, saya mau jual unit nih:%0A%0A` +
                         `*Unit:* ${brand} ${model}%0A` +
                         bhText +
